@@ -23,7 +23,7 @@ const newPost = () => {
     let span1 = document.createElement('span');
     span1.classList.add('badge');
     span1.classList.add('badge-light');
-    span1.textContent = 'Hobbies';
+    span1.textContent ='Hobbies'; 
 
     let span2 = document.createElement('span');
     span2.classList.add('badge');
@@ -48,6 +48,8 @@ const newPost = () => {
     return div;
 }
 
+console.log(newPost());
+
 // Adding the new plog to the submit button
 
 const submit = document.getElementById('submit-form');
@@ -57,5 +59,15 @@ submit.addEventListener('click', ($event) => {
     blogList.appendChild(newBlog);
     $event.preventDefault();
     document.querySelector('form').reset();
+});
+
+const checkedBox = document.getElementById('hobbies-tag');
+
+checkedBox.addEventListener('change', ($event) => {
+    if ($event.target.checked) {
+       submit.addEventListener('click', ($event) => {
+           checkedBox.textContent = $event.target.value;
+        });
+    }
 });
 
