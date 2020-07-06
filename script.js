@@ -1,73 +1,72 @@
 console.log('it works');
 
-//Create new blog
-const blogList = document.querySelector('#post-list');
+//Grab the element we need
+const postList = document.querySelector('#post-list');
+const submit = document.querySelector('#submit-form');
+const titleInput = document.querySelector('#new-post-title');
+const contentTextarea = document.querySelector('#new-post-content');
+const firstCheckbox = document.querySelector('#hobbies-tag');
+const secondCheckbox = document.querySelector('#school-life-tag');
+const thirdCheckbox = document.querySelector('#personal-tag');
+const addPostForm = document.querySelector('form');
 
-const newPost = () => {
-    let div = document.createElement('div');
-    div.setAttribute('id', 'post-list');
 
-    let div1 = document.createElement('div');
-    div1.classList.add('card');
-    div1.classList.add('some-space');
+//add the event Listener on the submit, click';
 
-    let div2 = document.createElement('div');
-    div2.classList.add('card-body');
+submit.addEventListener('click', ($event) => {
+    // Create html element
 
-    let title = document.createElement('h5');
-    title.classList.add('card-title');
+    let mainPost = document.createElement('div');
+    mainPost.classList.add('card', 'some-space');
+
+    let cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+
+    let heading = document.createElement('h5');
+    heading.classList.add('card-title');
+    heading.textContent = titleInput.value;
 
     let content = document.createElement('p');
     content.classList.add('card-text');
+    content.textContent = contentTextarea.value;
 
-    let span1 = document.createElement('span');
-    span1.classList.add('badge');
-    span1.classList.add('badge-light');
-    span1.textContent ='Hobbies'; 
+    let firstBadge = document.createElement('span');
+    firstBadge.classList.add('badge', 'badge-light', 'hidden');
+    firstBadge.textContent ='Hobbies';
 
-    let span2 = document.createElement('span');
-    span2.classList.add('badge');
-    span2.classList.add('badge-light');
-    span2.textContent = 'School life';
+    let secondBadge = document.createElement('span');
+    secondBadge.classList.add('badge', 'badge-light', 'hidden');
+    secondBadge.textContent = 'School life';
 
-    let span3 = document.createElement('span');
-    span3.classList.add('badge');
-    span3.classList.add('badge-light');
-    span3.textContent = 'Personal';
+    let thirdBadge = document.createElement('span');
+    thirdBadge.classList.add('badge', 'badge-light', 'hidden');
+    thirdBadge.textContent = 'Personal';
 
-    title.textContent = document.getElementById('new-post-title').value;
-    content.textContent = document.getElementById('new-post-content').value;
+    // Append the element together
 
-    div.appendChild(div1);
-    div1.appendChild(div2);
-    div2.appendChild(title);
-    div2.appendChild(content);
-    div2.appendChild(span1);
-    div2.appendChild(span2);
-    div2.appendChild(span3);
-    return div;
-}
+    mainPost.appendChild(cardBody);
+    cardBody.appendChild(heading);
+    cardBody.appendChild(content);
+    cardBody.appendChild(firstBadge);
+    cardBody.appendChild(secondBadge);
+    cardBody.appendChild(thirdBadge);
 
-console.log(newPost());
-
-// Adding the new plog to the submit button
-
-const submit = document.getElementById('submit-form');
-
-submit.addEventListener('click', ($event) => {
-    const newBlog = newPost();
-    blogList.appendChild(newBlog);
+    // Append the Post inside the list.
+    postList.appendChild(mainPost);
     $event.preventDefault();
-    document.querySelector('form').reset();
-});
+    // for the checkbox.
 
-const checkedBox = document.getElementById('hobbies-tag');
-
-checkedBox.addEventListener('change', ($event) => {
-    if ($event.target.checked) {
-       submit.addEventListener('click', ($event) => {
-           checkedBox.textContent = $event.target.value;
-        });
+    if(firstCheckbox.checked) {
+       firstBadge.classList.remove('hidden');
     }
+
+    if(secondCheckbox.checked) {
+        secondBadge.classList.remove('hidden');
+    }
+
+    if(thirdCheckbox.checked) {
+        thirdBadge.classList.remove('hidden');
+    }
+    addPostForm.reset();
 });
 
